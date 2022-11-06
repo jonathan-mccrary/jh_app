@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace jh_app.Models
+namespace jh_app.Domain.Models
 {
     public class Metrics
     {

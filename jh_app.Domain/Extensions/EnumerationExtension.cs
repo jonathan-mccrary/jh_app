@@ -1,5 +1,5 @@
 ﻿using System;
-namespace jh_app.Domain
+namespace jh_app.Domain.Extensions
 {
     /*
      * https://stackoverflow.com/questions/37305985/enum-description-attribute-in-dotnet-core

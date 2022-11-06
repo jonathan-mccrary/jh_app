@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jh_app.Console", "jh_app.co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jh_app.DataAccess", "jh_app.DataAccess\jh_app.DataAccess.csproj", "{7538B11D-74A4-4E5C-8930-146B14A584D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jh_app.Models", "jh_app.Models\jh_app.Models.csproj", "{6065385A-0095-4C43-AF16-A29B6C19D8CA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A50C8D39-B74A-4DBF-BAC8-B39E1289E4FA}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -30,10 +28,6 @@ Global
 		{7538B11D-74A4-4E5C-8930-146B14A584D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7538B11D-74A4-4E5C-8930-146B14A584D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7538B11D-74A4-4E5C-8930-146B14A584D2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6065385A-0095-4C43-AF16-A29B6C19D8CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6065385A-0095-4C43-AF16-A29B6C19D8CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6065385A-0095-4C43-AF16-A29B6C19D8CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6065385A-0095-4C43-AF16-A29B6C19D8CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AB8169FC-815A-4272-A391-A4EC04E1EB0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AB8169FC-815A-4272-A391-A4EC04E1EB0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB8169FC-815A-4272-A391-A4EC04E1EB0C}.Release|Any CPU.ActiveCfg = Release|Any CPU

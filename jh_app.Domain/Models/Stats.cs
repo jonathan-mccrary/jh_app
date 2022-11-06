@@ -1,5 +1,7 @@
 ﻿using System;
-namespace jh_app.Models
+using jh_app.Domain.Enums;
+
+namespace jh_app.Domain.Models
 {
     public class Stats
     {

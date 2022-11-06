@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace jh_app.Models
+namespace jh_app.Domain.Enums
 {
     public enum StatsType
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using jh_app.Models;
+using jh_app.Domain.Models;
 
-namespace jh_app.Domain
+namespace jh_app.Domain.Extensions
 {
     public static class StatsExension
     {
@@ -23,19 +23,13 @@ namespace jh_app.Domain
             var sortedDictionary = new SortedDictionary<string, long>(stat.Data);
             var topRecords = sortedDictionary.OrderByDescending(p => p.Value).Take(topRecordCount);
 
-            string iterationType = stat.IsCurrent ? "current" : "historical";
-            Console.WriteLine($"Top {topRecordCount} {iterationType} {stat.StatsType.Description()}");
+            Console.WriteLine($"Top {topRecordCount} {stat.IterationType.ToString()} {stat.StatsType.Description()}");
             int index = 1;
             foreach (var record in topRecords)
             {
                 Console.WriteLine($"{index}) {record.Key}: {record.Value}");
                 index++;
             }
-        }
-
-        public static string ToDescription<TEnum>(this TEnum EnumValue) where TEnum : struct
-        {
-            return Enumerations.GetEnumDescription((Enum)(object)((TEnum)EnumValue));
         }
     }
 }
