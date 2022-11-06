@@ -2,11 +2,13 @@
 using jh_app.Domain;
 using jh_app.Domain.Enums;
 using jh_app.Domain.Extensions;
+using jh_app.Domain.Contracts;
+using jh_app.DataAccess;
 using jh_app.Domain.Models;
 
 Console.WriteLine("Hello, World!");
-
-List<Stats> hashtagStats = new List<Stats>()
+ITwitterAPIWrapper api = new TwitterAPIWrapper();
+List<IStats> hashtagStats = new List<IStats>()
 {
     new Stats(
         statsType: StatsType.HashtagCount,
@@ -19,9 +21,9 @@ List<Stats> hashtagStats = new List<Stats>()
 while (true)
 {
     //Get Tweets 
-    List<Tweet> tweets = new List<Tweet>();
+    List<ITweet> tweets = api.GetVolumeStreams();
 
-    foreach(var tweet in tweets)
+    foreach (var tweet in tweets)
     {
         //parse Hastags
         List<string> hashtags = tweet.GetHashTags();

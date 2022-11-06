@@ -1,9 +1,10 @@
 ﻿using System;
+using jh_app.Domain.Contracts;
 using jh_app.Domain.Enums;
 
 namespace jh_app.Domain.Models
 {
-    public class Stats
+    public class Stats : IStats
     {
         public Stats(StatsType statsType, IterationType iterationType)
         {

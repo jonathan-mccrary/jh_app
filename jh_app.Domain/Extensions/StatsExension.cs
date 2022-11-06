@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
-using jh_app.Domain.Models;
+using jh_app.Domain.Contracts;
 
 namespace jh_app.Domain.Extensions
 {
     public static class StatsExension
     {
-        public static void AddUpdateData(this Stats stat, string key)
+        public static void AddUpdateData(this IStats stat, string key)
         {
             if (stat.Data.ContainsKey(key))
             {
@@ -18,7 +18,7 @@ namespace jh_app.Domain.Extensions
             }
         }
 
-        public static void OutputStatsData(this Stats stat, int topRecordCount)
+        public static void OutputStatsData(this IStats stat, int topRecordCount)
         {
             var sortedDictionary = new SortedDictionary<string, long>(stat.Data);
             var topRecords = sortedDictionary.OrderByDescending(p => p.Value).Take(topRecordCount);

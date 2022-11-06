@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using jh_app.Domain.Contracts;
 
 namespace jh_app.Domain.Models
 {
-    public class Metrics
+    public class Metrics : IMetrics
     {
         /// <summary>
         /// Impressions

@@ -1,8 +1,9 @@
 ﻿using System.Text.Json.Serialization;
+using jh_app.Domain.Contracts;
 
 namespace jh_app.Domain.Models
 {
-    public class Tweet
+    public class Tweet : ITweet
     {
         /// <summary>
         /// The unique identifier of the requested Tweet.
