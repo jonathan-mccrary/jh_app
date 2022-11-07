@@ -3,6 +3,7 @@ using jh_app.Domain.Contracts;
 
 namespace jh_app.Domain.Models
 {
+    
     public class Tweet : ITweet
     {
         /// <summary>

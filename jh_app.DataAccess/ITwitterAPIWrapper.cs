@@ -1,11 +1,11 @@
 ﻿using System;
-using jh_app.Domain.Contracts;
+using jh_app.Domain.Models;
 
 namespace jh_app.DataAccess
 {
     public interface ITwitterAPIWrapper
     {
-        List<ITweet> GetVolumeStreams();
+        List<Tweet?> GetVolumeStreams();
     }
 }
 

@@ -6,6 +6,22 @@ namespace jh_app.Domain.Models
 {
     public class Metrics : IMetrics
     {
+        /*
+        {"data":
+        {
+        "author_id":"1370883301322424320",
+        "edit_history_tweet_ids":["1589730667939893248"],
+        "id":"1589730667939893248",
+        "public_metrics":
+        {
+            "retweet_count":102,
+            "reply_count":0,
+            "like_count":0,
+            "quote_count":0
+        },
+        "text":"RT @J_Bardella: Élu et réélu député du Nord sur les terres ouvrières de la France qui se lève tôt, vice-président de l’Assemblée nationale,…"}}
+        */
+
         /// <summary>
         /// Impressions
         /// 
