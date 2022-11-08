@@ -18,4 +18,3 @@ namespace jh_app.Domain.Models
         public Dictionary<string, long> Data { get; set; }
     }
 }
-

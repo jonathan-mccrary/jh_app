@@ -11,4 +11,3 @@ namespace jh_app.DataAccess
         public const string AccessTokenSecret = "zS8HpG3tEaAe4yc8RicR7fvNRaGor9xLq0C0Jqd0g4ShU";
 	}
 }
-

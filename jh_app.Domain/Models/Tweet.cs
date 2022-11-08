@@ -3,7 +3,6 @@ using jh_app.Domain.Contracts;
 
 namespace jh_app.Domain.Models
 {
-    
     public class Tweet : ITweet
     {
         /// <summary>
@@ -22,13 +21,13 @@ namespace jh_app.Domain.Models
         public string[] EditHistoryTweetIds { get; set; }
 
         [JsonPropertyName("attachments")]
-        public object Attachments { get; set; }
+        public dynamic Attachments { get; set; }
 
         [JsonPropertyName("author_id")]
         public string AuthorId { get; set; }
 
         [JsonPropertyName("context_annotations")]
-        public object ContextAnnotations { get; set; }
+        public dynamic ContextAnnotations { get; set; }
 
         [JsonPropertyName("conversation_id")]
         public string ConversationId { get; set; }
@@ -37,10 +36,10 @@ namespace jh_app.Domain.Models
         public DateTime CreatedAt { get; set; }
 
         [JsonPropertyName("edit_controls")]
-        public object EditControls { get; set; }
+        public dynamic EditControls { get; set; }
 
         [JsonPropertyName("entities")]
-        public object Entities { get; set; }
+        public dynamic Entities { get; set; }
 
         [JsonPropertyName("in_reply_to_user_id")]
         public string InReplyToUserId { get; set; }
@@ -64,7 +63,7 @@ namespace jh_app.Domain.Models
         public Metrics PublicMetrics { get; set; }
 
         [JsonPropertyName("referenced_tweets")]
-        public object[] ReferencedTweets { get; set; }
+        public dynamic[] ReferencedTweets { get; set; }
 
         [JsonPropertyName("reply_settings")]
         public string ReplySettings { get; set; }
@@ -73,6 +72,6 @@ namespace jh_app.Domain.Models
         public string Source { get; set; }
 
         [JsonPropertyName("withheld")]
-        public object Withheld { get; set; }
+        public dynamic Withheld { get; set; }
     }
 }
