@@ -16,13 +16,11 @@ namespace jh_app.Domain.Enums
         [Description("Hashtag Total Retweets Count")]
         HashtagTotalRetweetsCount,
         [Description("Hashtag Likes Count")]
-        HashtagLikesSum,
-        [Description("Hashtag Original Post Count")]
-        HashtagOriginalPostCount,
+        HashtagLikesCount,
         [Description("Mention Count")]
         MentionCount,
-        [Description("Hastag Impressions Count")]
-        HastagImpressionsCount,
+        [Description("Mention Impressions Count")]
+        MentionImpressionsCount,
         [Description("Mention Retweets Count")]
         MentionRetweetsCount,
         [Description("Mention Quote Tweets Count")]
@@ -30,9 +28,7 @@ namespace jh_app.Domain.Enums
         [Description("Mention Total Retweets Count")]
         MentionTotalRetweetsCount,
         [Description("Mention Likes Count")]
-        MentionLikesSum,
-        [Description("Mention Original Post Count")]
-        MentionOriginalPostCount,
+        MentionLikesCount
     }
 }
 

@@ -1,29 +1,46 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net.Http.Headers;
+﻿using System.Diagnostics;
 using System.Text.Json;
 using jh_app.Domain.Contracts;
-using jh_app.Domain.Logic;
+using jh_app.Domain.Enums;
 using jh_app.Domain.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using RestSharp;
 
 namespace jh_app.DataAccess
 {
     public class TwitterAPIWrapper : ITwitterAPIWrapper
     {
-        private readonly int _timeInterval = 10; //seconds
         private IStatsProcessing _statsProcessing;
-        public TwitterAPIWrapper()
+        private ILogger _logger;
+        private IConfiguration _configuration;
+        private int _reportingInterval;
+        private Stopwatch _runTimer;
+
+        public TwitterAPIWrapper(IStatsProcessing statsProcessing,
+            ILogger<TwitterAPIWrapper> logger,
+            IConfiguration configuration)
         {
-            _statsProcessing = new StatsProcessing();
+            _statsProcessing = statsProcessing;
+           
+            _logger = logger;
+            _configuration = configuration;
+
+            _reportingInterval = Convert.ToInt32(_configuration["ReportingInterval"]);
+            _runTimer = new Stopwatch();
         }
+
+        public List<StatsType> ReportingTypes { get; set; }
+        public bool IncludeHistoricalReporting { get; set; }
 
         public void ProcessVolumeStreams()
         {
             try
             {
-                _statsProcessing.RunTimer.Start();
+                _logger.LogInformation("ProcessVolumeStreams START");
+                _runTimer.Start();
+                _statsProcessing.SetupProcessing(ReportingTypes, IncludeHistoricalReporting);
+                
                 RestClient client;
                 RestRequest request;
                 SetupRestClient(out client, out request);
@@ -36,68 +53,83 @@ namespace jh_app.DataAccess
                         using (StreamReader reader = new StreamReader(stream))
                         {
                             int index = 0;
-
-                            int nextReportingInterval = _timeInterval * 1000;
-                            bool report = false;
+                            int nextReportingInterval = _reportingInterval * 1000;
+                            List<ITweet> tweets = new List<ITweet>();
                             while (reader != null && !reader.EndOfStream)
                             {
                                 if (index % 100 == 0)
                                 {
                                     Console.Write(".");
                                 }
-                                if (_statsProcessing.RunTimer.ElapsedMilliseconds > nextReportingInterval)
-                                {
-                                    nextReportingInterval += _timeInterval * 1000;
-                                    report = true;
-                                    Console.WriteLine();
-                                }
 
-                                string json = reader.ReadLine();
-                                if (!string.IsNullOrEmpty(json))
-                                {
-                                    //Console.WriteLine(json);
-                                    var tweetData = JsonSerializer.Deserialize<TweetData>(json);
+                                ReadTweet(reader, tweets);
 
-                                    if (tweetData != null && tweetData.Tweet != null)
-                                    {
-                                        _statsProcessing.Process(tweetData.Tweet, report);
-                                    }
-                                }
-
-                                if (report)
+                                if (_runTimer.ElapsedMilliseconds > nextReportingInterval)
                                 {
-                                    Console.WriteLine("*****************************************");
-                                    Console.WriteLine($"Total Runtime: {_statsProcessing.RunTimer.Elapsed.ToString("mm\\:ss\\.ff")}");
-                                    Console.WriteLine("*****************************************");
-                                    Console.WriteLine();
+                                    nextReportingInterval += _reportingInterval * 1000;
+                                    _statsProcessing.ProcessTweets(tweets, _runTimer.Elapsed);
+                                    tweets.Clear();
                                 }
 
                                 index++;
-                                report = false;
                             }
-                            Console.WriteLine();
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Failure in Volume Stream Processing:");
-                Console.WriteLine(ex.Message);
+                _logger.LogError("Failure in Volume Stream Processing:");
+                _logger.LogError(ex.Message);
+            }
+            finally
+            {
+                _logger.LogInformation("ProcessVolumeStreams END");
             }
         }
 
-        private static void SetupRestClient(out RestClient client, out RestRequest request)
+        private void ReadTweet(StreamReader reader, List<ITweet> tweets)
         {
-            client = new RestClient(@"https://api.twitter.com/2/tweets/sample/stream?tweet.fields=attachments,author_id,context_annotations,conversation_id,created_at,edit_controls,edit_history_tweet_ids,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,reply_settings,source,text,withheld&media.fields=alt_text,duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,variants,width&poll.fields=duration_minutes,end_datetime,id,options,voting_status&user.fields=created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld&place.fields=contained_within,country,country_code,full_name,geo,id,name,place_type");
-            request = new RestRequest();
-            request.Method = Method.Get;
-            request.AddHeader("Authorization", $"Bearer {APIConstants.BearerToken}");
-            request.AddHeaders(new List<KeyValuePair<string, string>>()
+            try
             {
-                new KeyValuePair<string, string>( "Connection", "keep-alive" ),
-                new KeyValuePair<string, string>( "Accept", "*/*" ),
-            });
+                string json = reader.ReadLine();
+                if (!string.IsNullOrEmpty(json))
+                {
+                    var tweetData = JsonSerializer.Deserialize<TweetData>(json);
+
+                    if (tweetData != null && tweetData.Tweet != null)
+                    {
+                        _logger.LogTrace($"Tweet Text: {tweetData.Tweet.Text}");
+                        tweets.Add(tweetData.Tweet);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failure in ReadTweet:");
+                _logger.LogError(ex.Message);
+            }
+        }
+
+        private void SetupRestClient(out RestClient client, out RestRequest request)
+        {
+            client = new RestClient(_configuration["BaseURL"] ?? string.Empty);
+            request = new RestRequest();
+            try
+            {
+                request.Method = Method.Get;
+                request.AddHeader("Authorization", $"Bearer {_configuration["BearerToken"]}");
+                request.AddHeaders(new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>( "Connection", "keep-alive" ),
+                    new KeyValuePair<string, string>( "Accept", "*/*" ),
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to setup RestClient");
+                _logger.LogError(message: ex.Message);
+            }
         }
     }
 }

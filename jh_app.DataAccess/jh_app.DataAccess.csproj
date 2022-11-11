@@ -18,6 +18,7 @@
     <None Remove="Microsoft.AspNet.WebApi.Client" />
     <None Remove="RestSharp" />
     <None Remove="RestSharp.Serializers.SystemTextJson" />
+    <None Remove="Microsoft.Extensions.Logging" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />
@@ -26,9 +27,10 @@
     <ProjectReference Include="..\jh_app.Domain\jh_app.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="RestSharp" Version="108.0.2" />
     <PackageReference Include="RestSharp.Serializers.SystemTextJson" Version="106.15.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
   </ItemGroup>
 </Project>

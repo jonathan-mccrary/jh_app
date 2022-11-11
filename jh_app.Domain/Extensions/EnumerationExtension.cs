@@ -1,5 +1,4 @@
-﻿using System;
-namespace jh_app.Domain.Extensions
+﻿namespace jh_app.Domain.Extensions
 {
     /*
      * https://stackoverflow.com/questions/37305985/enum-description-attribute-in-dotnet-core
@@ -10,13 +9,13 @@ namespace jh_app.Domain.Extensions
         {
             // get attributes  
             var field = value.GetType().GetField(value.ToString());
-            var attributes = field.GetCustomAttributes(false);
+            var attributes = field?.GetCustomAttributes(false);
 
             // Description is in a hidden Attribute class called DisplayAttribute
             // Not to be confused with DisplayNameAttribute
-            dynamic displayAttribute = null;
+            dynamic? displayAttribute = null;
 
-            if (attributes.Any())
+            if (attributes?.Any() ?? false)
             {
                 displayAttribute = attributes.ElementAt(0);
             }

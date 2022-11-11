@@ -5,3 +5,9 @@ dotnet_diagnostic.CS8618.severity = none
 
 # CS8619: Nullability of reference types in value doesn't match target type.
 dotnet_diagnostic.CS8619.severity = none
+
+# CA1848: Use the LoggerMessage delegates
+dotnet_diagnostic.CA1848.severity = none
+
+# CS8602: Dereference of a possibly null reference.
+dotnet_diagnostic.CS8602.severity = none

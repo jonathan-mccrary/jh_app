@@ -20,7 +20,5 @@ namespace jh_app.Domain.Models
         }
 
         public List<IStats> StatsList { get; private set; }
-
-        
     }
 }
