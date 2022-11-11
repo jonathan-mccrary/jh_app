@@ -83,9 +83,9 @@ List<StatsType> GetStatsTypesInput(ILogger<Program> logger)
         while (!isValid)
         {
             //read input;
-            string input = Console.ReadLine();
-            string[] inputSplit = input.Split(',');
-            bool allValid = true;
+            string? input = Console.ReadLine();
+            string[] inputSplit = input?.Split(',') ?? Array.Empty<string>();
+
             foreach (string i in inputSplit)
             {
                 string iTrim = i.Trim();
@@ -143,12 +143,12 @@ bool GetHistoricalReportingInput(ILogger<Program> logger)
         while (!isValid)
         {
             string histInput = Console.ReadLine();
-            if (histInput.ToUpper() == "Y")
+            if (histInput.Trim().ToUpper() == "Y")
             {
                 isValid = true;
                 includeHistoricalReporting = true;
             }
-            else if (histInput.ToUpper() == "N")
+            else if (histInput.Trim().ToUpper() == "N")
             {
                 isValid = true;
                 includeHistoricalReporting = false;
@@ -167,10 +167,4 @@ bool GetHistoricalReportingInput(ILogger<Program> logger)
     }
 
     return includeHistoricalReporting;
-}
-
-void ExitConsole(object sender, ConsoleCancelEventArgs e)
-{
-    e.Cancel = true;
-    Environment.Exit(0);
 }

@@ -7,8 +7,6 @@ namespace jh_app.Domain.Enums
     {
         [Description("Hashtag Count")]
         HashtagCount,
-        [Description("Hashtag Impressions Count")]
-        HashtagImpressionsCount,
         [Description("Hashtag Retweets Count")]
         HashtagRetweetsCount,
         [Description("Hashtag Quote Tweets Count")]
@@ -19,8 +17,6 @@ namespace jh_app.Domain.Enums
         HashtagLikesCount,
         [Description("Mention Count")]
         MentionCount,
-        [Description("Mention Impressions Count")]
-        MentionImpressionsCount,
         [Description("Mention Retweets Count")]
         MentionRetweetsCount,
         [Description("Mention Quote Tweets Count")]

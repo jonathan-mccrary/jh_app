@@ -13,7 +13,7 @@ namespace jh_app.Domain.Contracts
         string ConversationId { get; set; }
         DateTime CreatedAt { get; set; }
         dynamic EditControls { get; set; }
-        dynamic Entities { get; set; }
+        Entities Entities { get; set; }
         string InReplyToUserId { get; set; }
         string Language { get; set; }
         Metrics NonPublicMetrics { get; set; }

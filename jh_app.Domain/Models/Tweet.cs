@@ -39,7 +39,7 @@ namespace jh_app.Domain.Models
         public dynamic EditControls { get; set; }
 
         [JsonPropertyName("entities")]
-        public dynamic Entities { get; set; }
+        public Entities Entities { get; set; }
 
         [JsonPropertyName("in_reply_to_user_id")]
         public string InReplyToUserId { get; set; }

@@ -101,48 +101,43 @@ namespace jh_app.Domain.Logic
         {
             try
             {
-                List<string> hashtags = null;
-                List<string> mentions = null;
+                List<string> hashtags = tweet.Entities?.Hashtags?.Select(p => p.Tag)?.ToList() ?? new List<string>();
+                List<string> mentions = tweet.Entities?.Mentions?.Select(p => p.UserName)?.ToList() ?? new List<string>();
                 foreach (var statType in _reportingTypes)
                 {
                     switch (statType)
                     {
                         case (StatsType.HashtagCount):
                             
-                            _statsWrappers[StatsType.HashtagCount].UpdateStatsWrapper(hashtags ?? (hashtags = tweet.GetHashTags()), 1);
-                            break;
-                        case (StatsType.HashtagImpressionsCount):
-                            _statsWrappers[StatsType.HashtagImpressionsCount].UpdateStatsWrapper(hashtags ?? (hashtags = tweet.GetHashTags()), tweet.PublicMetrics.ImpressionCount);
+                            //_statsWrappers[StatsType.HashtagCount].UpdateStatsWrapper(hashtags ?? (hashtags = tweet.GetHashTags()), 1);
+                            _statsWrappers[StatsType.HashtagCount].UpdateStatsWrapper(hashtags, 1);
                             break;
                         case (StatsType.HashtagLikesCount):
-                            _statsWrappers[StatsType.HashtagLikesCount].UpdateStatsWrapper(hashtags ?? (hashtags = tweet.GetHashTags()), tweet.PublicMetrics.LikeCount);
+                            _statsWrappers[StatsType.HashtagLikesCount].UpdateStatsWrapper(hashtags, tweet.PublicMetrics.LikeCount);
                             break;
                         case (StatsType.HashtagQuoteTweetsCount):
-                            _statsWrappers[StatsType.HashtagQuoteTweetsCount].UpdateStatsWrapper(hashtags ?? (hashtags = tweet.GetHashTags()), tweet.PublicMetrics.QuoteCount);
+                            _statsWrappers[StatsType.HashtagQuoteTweetsCount].UpdateStatsWrapper(hashtags, tweet.PublicMetrics.QuoteCount);
                             break;
                         case (StatsType.HashtagRetweetsCount):
-                            _statsWrappers[StatsType.HashtagRetweetsCount].UpdateStatsWrapper(hashtags ?? (hashtags = tweet.GetHashTags()), tweet.PublicMetrics.RetweetCount);
+                            _statsWrappers[StatsType.HashtagRetweetsCount].UpdateStatsWrapper(hashtags, tweet.PublicMetrics.RetweetCount);
                             break;
                         case (StatsType.HashtagTotalRetweetsCount):
-                            _statsWrappers[StatsType.HashtagTotalRetweetsCount].UpdateStatsWrapper(hashtags ?? (hashtags = tweet.GetHashTags()), tweet.PublicMetrics.TotalRetweetCount);
+                            _statsWrappers[StatsType.HashtagTotalRetweetsCount].UpdateStatsWrapper(hashtags, tweet.PublicMetrics.TotalRetweetCount);
                             break;
                         case (StatsType.MentionCount):
-                            _statsWrappers[StatsType.MentionCount].UpdateStatsWrapper(mentions ?? (mentions = tweet.GetMentions()), 1);
-                            break;
-                        case (StatsType.MentionImpressionsCount):
-                            _statsWrappers[StatsType.MentionImpressionsCount].UpdateStatsWrapper(mentions ?? (mentions = tweet.GetMentions()), tweet.PublicMetrics.ImpressionCount);
+                            _statsWrappers[StatsType.MentionCount].UpdateStatsWrapper(mentions, 1);
                             break;
                         case (StatsType.MentionLikesCount):
-                            _statsWrappers[StatsType.MentionLikesCount].UpdateStatsWrapper(mentions ?? (mentions = tweet.GetMentions()), tweet.PublicMetrics.LikeCount);
+                            _statsWrappers[StatsType.MentionLikesCount].UpdateStatsWrapper(mentions , tweet.PublicMetrics.LikeCount);
                             break;
                         case (StatsType.MentionQuoteTweetsCount):
-                            _statsWrappers[StatsType.MentionQuoteTweetsCount].UpdateStatsWrapper(mentions ?? (mentions = tweet.GetMentions()), tweet.PublicMetrics.QuoteCount);
+                            _statsWrappers[StatsType.MentionQuoteTweetsCount].UpdateStatsWrapper(mentions , tweet.PublicMetrics.QuoteCount);
                             break;
                         case (StatsType.MentionRetweetsCount):
-                            _statsWrappers[StatsType.MentionRetweetsCount].UpdateStatsWrapper(mentions ?? (mentions = tweet.GetMentions()), tweet.PublicMetrics.RetweetCount);
+                            _statsWrappers[StatsType.MentionRetweetsCount].UpdateStatsWrapper(mentions , tweet.PublicMetrics.RetweetCount);
                             break;
                         case (StatsType.MentionTotalRetweetsCount):
-                            _statsWrappers[StatsType.MentionTotalRetweetsCount].UpdateStatsWrapper(mentions ?? (mentions = tweet.GetMentions()), tweet.PublicMetrics.TotalRetweetCount);
+                            _statsWrappers[StatsType.MentionTotalRetweetsCount].UpdateStatsWrapper(mentions, tweet.PublicMetrics.TotalRetweetCount);
                             break;
                     }
                 }
