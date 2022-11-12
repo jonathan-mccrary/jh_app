@@ -1,4 +1,6 @@
-﻿namespace jh_app.Domain.Contracts
+﻿using System.Text.Json.Serialization;
+
+namespace jh_app.Domain.Contracts.Models.Twitter
 {
     public interface IMention
     {

@@ -1,10 +1,22 @@
-﻿using jh_app.Domain.Contracts;
+﻿using jh_app.Domain.Contracts.Models;
 using jh_app.Domain.Enums;
 
 namespace jh_app.Domain.Extensions
 {
     public static class StatsExension
     {
+        public static void AddUpdateStatsData(this IStats stat, string key)
+        {
+            if (stat.Data.ContainsKey(key))
+            {
+                stat.Data[key]++;
+            }
+            else
+            {
+                stat.Data.Add(key, 1);
+            }
+        }
+
         public static void AddUpdateStatsData(this IStats stat, string key, long? value)
         {
             if (value.HasValue)
@@ -16,6 +28,36 @@ namespace jh_app.Domain.Extensions
                 else
                 {
                     stat.Data.Add(key, value.Value);
+                }
+            }
+        }
+
+        public static void UpdateStatsWrapper(this IStatsWrapper countStats, string key)
+        {
+            foreach (var stats in countStats.StatsList)
+            {
+                stats.AddUpdateStatsData(key, 1);
+            }
+        }
+
+        public static void UpdateStatsWrapper(this IStatsWrapper countStats, string key, long? count)
+        {
+            foreach (var stats in countStats.StatsList)
+            {
+                stats.AddUpdateStatsData(key, count);
+            }
+        }
+
+        public static void UpdateStatsWrapper(this IStatsWrapper countStats, List<string> items)
+        {
+            if (items != null && items.Count > 0)
+            {
+                foreach (var item in items)
+                {
+                    foreach (var stats in countStats.StatsList)
+                    {
+                        stats.AddUpdateStatsData(item);
+                    }
                 }
             }
         }

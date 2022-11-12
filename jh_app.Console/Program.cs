@@ -1,5 +1,5 @@
 ﻿using jh_app.DataAccess;
-using jh_app.Domain.Contracts;
+using jh_app.Domain.Contracts.Logic;
 using jh_app.Domain.Enums;
 using jh_app.Domain.Extensions;
 using jh_app.Domain.Logic;
@@ -14,6 +14,7 @@ Console.CancelKeyPress += new ConsoleCancelEventHandler((sender, e) =>
     e.Cancel = true;
     Environment.Exit(0);
 });
+
 
 var _services = new ServiceCollection();
 ConfigureServices(_services);
@@ -142,7 +143,7 @@ bool GetHistoricalReportingInput(ILogger<Program> logger)
         bool isValid = false;
         while (!isValid)
         {
-            string histInput = Console.ReadLine();
+            string? histInput = Console.ReadLine();
             if (histInput.Trim().ToUpper() == "Y")
             {
                 isValid = true;

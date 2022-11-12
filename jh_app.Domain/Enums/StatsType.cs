@@ -24,7 +24,11 @@ namespace jh_app.Domain.Enums
         [Description("Mention Total Retweets Count")]
         MentionTotalRetweetsCount,
         [Description("Mention Likes Count")]
-        MentionLikesCount
+        MentionLikesCount,
+        [Description("Language Count")]
+        LanguageCount,
+        [Description("Source Count")]
+        SourceCount
     }
 }
 

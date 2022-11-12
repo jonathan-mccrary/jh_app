@@ -1,4 +1,4 @@
-﻿using jh_app.Domain.Contracts;
+﻿using jh_app.Domain.Contracts.Models.Twitter;
 
 namespace jh_app.Domain.Extensions
 {

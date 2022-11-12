@@ -1,6 +1,6 @@
 ﻿using jh_app.Domain.Enums;
 
-namespace jh_app.Domain.Contracts
+namespace jh_app.Domain.Contracts.Models
 {
     public interface IStats
     {

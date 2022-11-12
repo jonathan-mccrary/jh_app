@@ -15,6 +15,10 @@
     <None Remove="Microsoft.Extensions.Configuration" />
     <None Remove="Logic\" />
     <None Remove="Microsoft.Extensions.Logging" />
+    <None Remove="Contracts\Models\" />
+    <None Remove="Contracts\Logic\" />
+    <None Remove="Models\Twitter\" />
+    <None Remove="Contracts\Models\Twitter\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
@@ -22,6 +26,10 @@
     <Folder Include="Enums\" />
     <Folder Include="Contracts\" />
     <Folder Include="Logic\" />
+    <Folder Include="Contracts\Models\" />
+    <Folder Include="Contracts\Logic\" />
+    <Folder Include="Models\Twitter\" />
+    <Folder Include="Contracts\Models\Twitter\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />

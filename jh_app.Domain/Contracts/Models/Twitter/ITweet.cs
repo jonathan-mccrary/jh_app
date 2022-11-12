@@ -1,6 +1,8 @@
-﻿using jh_app.Domain.Models;
+﻿using System.Text.Json.Serialization;
+using jh_app.Domain.Models;
+using jh_app.Domain.Models.Twitter;
 
-namespace jh_app.Domain.Contracts
+namespace jh_app.Domain.Contracts.Models.Twitter
 {
     public interface ITweet
     {
@@ -12,7 +14,7 @@ namespace jh_app.Domain.Contracts
         dynamic ContextAnnotations { get; set; }
         string ConversationId { get; set; }
         DateTime CreatedAt { get; set; }
-        dynamic EditControls { get; set; }
+        EditControls EditControls { get; set; }
         Entities Entities { get; set; }
         string InReplyToUserId { get; set; }
         string Language { get; set; }

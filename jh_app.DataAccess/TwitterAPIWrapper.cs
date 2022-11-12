@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
-using jh_app.Domain.Contracts;
+using jh_app.Domain.Contracts.Logic;
+using jh_app.Domain.Contracts.Models.Twitter;
 using jh_app.Domain.Enums;
-using jh_app.Domain.Models;
+using jh_app.Domain.Models.Twitter;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RestSharp;
@@ -92,7 +93,7 @@ namespace jh_app.DataAccess
         {
             try
             {
-                string json = reader.ReadLine();
+                string? json = reader.ReadLine();
                 if (!string.IsNullOrEmpty(json))
                 {
                     var tweetData = JsonSerializer.Deserialize<TweetData>(json);
